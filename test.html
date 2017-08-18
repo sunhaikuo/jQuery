@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery源码测试</title>
+</head>
+<body>
+	<div id="myDiv"> </div>
+	<script type="text/javascript" src="./jquery-2.0.3.js"></script>
+	<script type="text/javascript">
+		var cb = $.Callbacks()
+		function aaa() {
+			setTimeout(function() {
+				alert(1)
+			}, 2000)
+		}
+		cb.add(aaa)
+		;(function() {
+			function bbb() {
+				alert(2)
+			}
+			cb.add(bbb)
+		})()
+
+		// cb.fire()
+	</script>
+</body>
+</html>

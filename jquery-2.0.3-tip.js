@@ -1068,7 +1068,20 @@
 	 *
 	 */
 	 /*
-		视频：29
+		视频：29--31
+		fire是可以多次触发，就好比click事件处理，可以点击多次
+
+		once：只触发一次
+		memory：适合处理如下情况：
+				function a(){}
+				function b(){}
+				var cb = $.Callbacks()
+				cb.add(a)
+				cb.fire()
+				cb.add(b)
+			加入该参数，在fire后面add，也会执行
+		unique：会处理相同函数不会被执行
+		stopOnFalse：方法中有return false时，后续就会不执行
 	 */
 	jQuery.Callbacks = function (options) {
 
@@ -1128,6 +1141,10 @@
 					if (list) {
 						// First, we save the current length
 						var start = list.length;
+						/*
+							兼容如下操作：
+							cb.add(aa, bb)
+						*/
 						(function add(args) {
 							jQuery.each(args, function (_, arg) {
 								var type = jQuery.type(arg);
@@ -1135,6 +1152,7 @@
 									if (!options.unique || !self.has(arg)) {
 										list.push(arg);
 									}
+								/* 兼容[aa, bb] */
 								} else if (arg && arg.length && type !== "string") {
 									// Inspect recursively
 									add(arg);
