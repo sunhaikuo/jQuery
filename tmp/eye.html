@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>arcsin</title>
+	<style>
+		.content {
+			width: 500px;
+			height: 500px;
+			border-radius: 50%;
+			position: absolute;
+			/*left: 125px;*/
+			border: 1px solid black;
+		}
+		.wrap {
+			width: 100px;
+			height: 100px;
+			background-color: gray;
+			border-radius: 50%;
+			position: relative;
+			left: 100px;
+			top: 100px;
+		}
+		.wrap1 {
+			top: 300px;
+			left: 250px;
+		}
+		.eye {
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background-color: black;
+			position: absolute;
+/*			left: 70px;
+			top: 35px;*/
+			top:60px;
+			left: 67.3px;
+		}
+	</style>
+</head>
+<body>
+	<!-- <div class="content"></div> -->
+<!-- 	<div class="wrap">
+		<div id="eye1" class="eye eye1"></div>
+	</div> -->
+	<div class="wrap wrap1">
+		<div id="eye2" class="eye eye2"></div>
+	</div>
+	
+<script type="text/javascript">
+	document.addEventListener('mousemove', function(ev){
+		var x = ev.pageX
+		var y = ev.pageY
+		var wrap = document.querySelector('.wrap')
+		var offsetX = wrap.offsetLeft
+		var offsetY = wrap.offsetTop
+		var clientWidth = wrap.clientWidth
+		var clientHeight = wrap.clientHeight
+		var eye = document.getElementById('eye2')
+
+		// var a = x - (100 + 50)
+		// var b = y - (100 + 50)
+		var a = 0
+		var b = 0
+		var distX = 0
+		var distY = 0
+
+		if(x > (offsetX + clientWidth/2)) {
+			a = x - offsetX - clientWidth/2
+			distX = clientWidth/2
+			// console.log('right')
+		}else {
+			a = (offsetX + clientWidth/2) - x
+			distX =  clientWidth/2 * -1
+			// console.log('left')
+		}
+		if(y < (offsetY + clientHeight/2) ) {
+			b = (offsetY + clientHeight/2) - y
+			distY = clientHeight/2 * -1
+			// console.log('top')
+		}else {
+			b = y - (offsetY + clientHeight/2)
+			distY = clientHeight/2
+			// console.log('bottom')
+		}
+		// console.log(distX, distY)
+		
+		var deg = Math.atan(b/a)
+		var val = Math.atan(b/a) * 180/Math.PI
+		var left = Math.abs(Math.cos(deg) * (50 - 30) + distX)
+		var top = Math.abs(Math.sin(deg) * (50 - 30) + distY)
+		eye.style.left = left + 'px'
+		eye.style.top = top + 'px'
+		console.log(a, b, val)
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>圆周运动</title>
+	<style>
+		.circle {
+			width:20px;
+			height:20px;
+			background-color:red;
+			position:absolute;
+			left:600px;
+			top: 300px;
+		}
+		.dot {
+			position: absolute;
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<div id="circle" class="circle"></div>
+	<script type="text/javascript">
+		var circle = document.getElementById('circle')
+		var r = 100
+		var num = 0
+		var x = 500
+		var y = 300
+		setInterval(function() {
+			num ++
+			var a = Math.sin(num * Math.PI/180) * r
+			var b = Math.cos(num * Math.PI/180) * r
+			circle.style.left = x + b + 'px'
+			circle.style.top = x + a + 'px'
+
+			var dot = document.createElement('div')
+			dot.className = 'dot'
+			dot.style.left = x + b + 10 + 'px'
+			dot.style.top = x + a + 10  + 'px'
+			document.body.appendChild(dot)
+		}, 30)
+	</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>碰撞</title>
+	<style type="text/css">
+		.b1 {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			background-color: gray;
+			position: absolute;
+			left: 200px;
+			top: 50px;
+			opacity: 0.5;
+		}
+		.b2 {
+			width: 250px;
+			height: 250px;
+			border-radius: 50%;
+			background-color: red;
+			position: absolute;
+			left: 600px;
+			top: 10px;
+			opacity: 0.5;
+		}
+	</style>
+</head>
+<body>
+	<div class="b1"></div>
+	<div class="b2"></div>
+	<script type="text/javascript" src="./jquery-2.0.3.js"></script>
+	<script type="text/javascript">
+		// setInterval(function() {
+
+		// }, 30)
+		var isColl = false
+		var speedX = 5
+		var speedY = 0
+		function move() {
+			var speed = 5
+			var b1 = $('.b1')
+			var left1 = b1.offset().left
+			var top1 = b1.offset().top
+			left1 += speedX
+			top1 += speedY
+			$('.b1').css({
+				'left': left1 + 'px',
+				'top':top1 + 'px'
+			})
+
+			var b2 = $('.b2')
+			var left2 = b2.offset().left
+			var top2 = b2.offset().top
+			var a = Math.abs((left2 + b2.width()/2) - (left1 + b1.width()/2))
+			var b = Math.abs((top2 + b2.height()/2) - (top1 + b1.height()/2))
+			var distance = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
+			var ang = Math.atan(b/a)
+			if(distance < (b1.width()/2 + b2.width()/2) && !isColl) {
+				var s1 = Math.cos(ang) * speed
+				var s2 = Math.sin(ang) * speed
+				var s1a = s1 * Math.cos(ang) * -1
+				var s1b = s1 * Math.sin(ang) * -1
+
+				var s2a = s2 * Math.cos(ang)
+				var s2b = s2 * Math.sin(ang) * -1
+
+				speedX = s1a + s2a
+				speedY = (s1b + s2b) * -1
+				console.log(speedX, speedY)
+				isColl = true
+			}
+			window.requestAnimationFrame(move)
+		}
+		move()
+	</script>
+</body>
+</html>
